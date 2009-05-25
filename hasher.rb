@@ -43,22 +43,18 @@ begin
   ab = ABHash.new 
   digest = Digest::SHA1.new
   digest << 'Adam'
-  (1..10).each { |e| 
-    digest << e.to_s 
-    puts digest.hexdigest
-    puts ab.hex2abhash(digest.hexdigest.to_s)
-    puts digest.hexdigest.to_s.size    
-    puts ab.hex2abhash(digest.hexdigest.to_s).size
-  }
+  abh = ab.hex2abhash(digest.hexdigest)
+  
+  puts "sha('Adam') is #{digest.hexdigest.size} characters long: #{digest.hexdigest}"
+  puts "abh('Adam') is #{abh.size} characters long: #{abh}"
 
   md5 = Digest::MD5.new
   md5 << 'Adam'
-  puts md5.hexdigest
-  puts md5.hexdigest.size  
+  abh = ab.hex2abhash(md5.hexdigest)
+  puts "md5('Adam') is #{md5.hexdigest.size} characters long: #{md5.hexdigest}"
+  puts "abh('Adam') is #{abh.size} characters long: #{abh}"  
 
   puts ab.hex2abhash("a")
   puts ab.hex2abhash("ffffffffff")
-  
-  puts "FFFFffffffff #{'ffffffffffff'.hex.size}"
-  
+    
 end
