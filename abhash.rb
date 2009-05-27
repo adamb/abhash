@@ -62,4 +62,26 @@ begin
   abh = ab.hex2abh(digest.hexdigest)
   puts "特选视频 abh('Adam') is #{abh.size} characters long: #{abh}"
   
+  ident = ABHash.new("0123456789abcdef")
+  abh = ident.hex2abh(digest.hexdigest)
+  // These should be the exact same
+  puts "  sha('Adam') is #{digest.hexdigest.size} characters long: #{digest.hexdigest}"
+  puts "ident('Adam') is #{abh.size} characters long: #{abh}"
+  
+  lossy = "0123456789" + 
+   "abcdefghijklmnopqrstuvwxyz" + 
+   "ABCDEFGHIJKLMNOPQRSTUVWXYZ$-_" +
+   "0123456789" + 
+    "abcdefghijklmnopqrstuvwxyz" + 
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ$-_" +
+    "abcdefghijklmnopqrstuvwxyz" + 
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ$-_" +
+    "0123456789" + 
+     "abcdefghijklmnopqrstuvwxyz" + 
+     "ABCDEFGHIJKLMNOPQRSTUVWXYZ$-_";
+    
+  ab = ABHash.new(lossy)
+  abh = ab.hex2abh(digest.hexdigest)
+  puts "lossy abh('Adam') is #{abh.size} characters long: #{abh}"
+  
 end
