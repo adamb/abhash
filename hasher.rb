@@ -2,10 +2,8 @@
 
 # Created: 2009-04-17
 # Author: Adam Beguelin
-
 require 'sha1'
 require 'md5'
-require 'base64'
 
 # ABHash convert hash hex strings to shorter strings using Any Base (thus ABHash)
 
@@ -25,8 +23,9 @@ class ABHash
   end
 
   # convert hex number to number in base alphabet
-  def hex2abhash(h)
-    number = h.hex # what if it's already a hex string?
+  def hex2abh(h)
+    number = h.hex
+    return '0' if number < 1
     base = @ab_digit.size
     rc = ''
     while(number !=0)
@@ -35,26 +34,28 @@ class ABHash
     end
     return rc
   end
-
+  
 end
-
 
 begin
   ab = ABHash.new 
+  
   digest = Digest::SHA1.new
   digest << 'Adam'
-  abh = ab.hex2abhash(digest.hexdigest)
-  
+  abh = ab.hex2abh(digest.hexdigest)
   puts "sha('Adam') is #{digest.hexdigest.size} characters long: #{digest.hexdigest}"
   puts "abh('Adam') is #{abh.size} characters long: #{abh}"
 
   md5 = Digest::MD5.new
   md5 << 'Adam'
-  abh = ab.hex2abhash(md5.hexdigest)
+  abh = ab.hex2abh(md5.hexdigest)
   puts "md5('Adam') is #{md5.hexdigest.size} characters long: #{md5.hexdigest}"
   puts "abh('Adam') is #{abh.size} characters long: #{abh}"  
 
-  puts ab.hex2abhash("a")
-  puts ab.hex2abhash("ffffffffff")
+  puts "\nDefault mappings for 0-F are the identical"
+  puts "hex\t abh"
+  (0..ABHash::ALPHA_URL.size).each { |e| puts "#{e.to_s(16)}\t #{ab.hex2abh(e.to_s(16))}" }
+  
+  puts "ab.hex2abh('ffffffffff') #{ab.hex2abh("ffffffffff")}"
     
 end
