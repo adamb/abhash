@@ -1,0 +1,29 @@
+
+ABHash is an attempt to come up with shorter strings when dealing with hashes.  The basic idea
+is to map the string into a larger base than 16.  The default base is 65 and the characters used
+are 0-9, a-z, A-Z, minus(-), and underscore (_). The default mapping works for URLs.
+
+If you want to use a different mapping, just call new() with a different string. 
+
+For example, the standard hex digest for sha1 is 40 characters.  The default ABHash for the
+same string is 27 characters.
+
+sha('Adam') is 40 characters long: f941e1206abd4a2d8889da67be10151f429d95dc
+abh('Adam') is 27 characters long: aqHctnvM72er5Tl5OgJFBTGAtxS
+md5('Adam') is 32 characters long: 7efd721c8bfff2937c66235f2d0dbac1
+abh('Adam') is 22 characters long: 1s8EscLPTdZ$UGWlrAQfIc
+
+A word of warning, if you change the default mapping, then of course your hashes might not match up.
+For instance, if you generate a lot of objects for S3 using the default mappings, then decide to
+switch to a different mapping, then you might not be able to find the objects you stored in S3 using
+the original mappings.  
+
+The default mapping doesn't include period (.) because S3 doesn't allow you to end an object name
+with a period.  
+
+Of course you can use other character sets, like Chinese or just binary.  
+
+Just for fun:
+
+Using the mapping string of 特选视频 (Truveo) you can get longer rather than shorter mappings: 
+特选视频 abh('Adam') is 240 characters long: 频频视选选特特选频视特选特视特特选视视视视频频选选特视视特视频选视特视特视特视选频选视视选视选频视频频视特选特特特选选选特选频频选特特视视选频选视选选选频选频特"\

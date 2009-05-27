@@ -55,7 +55,11 @@ begin
   puts "\nDefault mappings for 0-F are the identical"
   puts "hex\t abh"
   (0..ABHash::ALPHA_URL.size).each { |e| puts "#{e.to_s(16)}\t #{ab.hex2abh(e.to_s(16))}" }
-  
+
   puts "ab.hex2abh('ffffffffff') #{ab.hex2abh("ffffffffff")}"
-    
+  
+  ab = ABHash.new("特选视频")
+  abh = ab.hex2abh(digest.hexdigest)
+  puts "特选视频 abh('Adam') is #{abh.size} characters long: #{abh}"
+  
 end
