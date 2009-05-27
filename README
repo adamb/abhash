@@ -26,4 +26,10 @@ Of course you can use other character sets, like Chinese or just binary.
 Just for fun:
 
 Using the mapping string of 特选视频 (Truveo) you can get longer rather than shorter mappings: 
-特选视频 abh('Adam') is 240 characters long: 频频视选选特特选频视特选特视特特选视视视视频频选选特视视特视频选视特视特视特视选频选视视选视选频视频频视特选特特特选选选特选频频选特特视视选频选视选选选频选频特"\
+特选视频 abh('Adam') is 240 characters long: 频频视选选特特选频视特选特视特特选视视视视频频选选特视视特视频选视特视特视特视选频选视视选视选频视频频视特选特特特选选选特选频频选特特视视选频选视选选选频选频特
+
+TODO
+
+Turn this into a gem.
+Create proper test suite.
+
